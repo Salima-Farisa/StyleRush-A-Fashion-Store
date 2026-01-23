@@ -1,0 +1,45 @@
+<!-- Footer -->
+<footer class="bg-dark text-white py-4">
+    <div class="container text-center">
+      	<div class="row gy-4">
+        
+        	<!-- Logo and Description -->
+        	<div class="col-md-4">
+          		<h2 class="footer-title">STYLE RUSH</h2>
+          		<p class="mt-3">Complete your style with awesome clothes from us.</p>
+          		<div class="footer-social mt-4">
+            		<a href=""><i class="fab fa-facebook-f"></i></a>
+            		<a href=""><i class="fab fa-instagram"></i></a>
+            		<a href=""><i class="fab fa-twitter"></i></a>
+            		<a href=""><i class="fab fa-linkedin-in"></i></a>
+          		</div>
+        	</div>
+
+			<!-- Company -->
+			<div class="col-md-2">
+				<h5 class="footer-section-title">Company</h5>
+				<a href="{% url "about" %}" class="footer-link">About</a>
+				<a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#contactModal">Contact us</a>
+				<a href="#" class="footer-link">Support</a>
+				<a href="#" class="footer-link">Careers</a>
+			</div>
+
+			<!-- Quick Links -->
+			<div class="col-md-3">
+				<h5 class="footer-section-title">Quick Link</h5>
+				<a href="#" class="footer-link">Share Location</a>
+				<a href="{% url "order_list" %}" class="footer-link">Orders Tracking</a>
+				<a href="#" class="footer-link">Size Guide</a>
+				<a href="#" class="footer-link">FAQs</a>
+			</div>
+
+			<!-- Legal -->
+			<div class="col-md-3">
+				<h5 class="footer-section-title">Legal</h5>
+				<a href="#" class="footer-link">Terms & Conditions</a>
+				<a href="#" class="footer-link">Privacy Policy</a>
+			</div>
+
+      	</div>
+    </div>
+</footer>

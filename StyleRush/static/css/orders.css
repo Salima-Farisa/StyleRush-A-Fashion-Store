@@ -1,0 +1,64 @@
+.order-section{
+    background-color: #ab8282;
+    min-height: 50vh;
+}
+
+
+.order-card {
+    max-width: 700px;
+    margin: auto;
+    background-color: #c5b3b3;
+}
+
+.order-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.btn-outline-danger {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Highlight cancelled orders */
+.cancelled-card {
+  opacity: 0.85;
+  background-color: #afadad !important;
+  border: 1px solid #dc3545 !important;
+}
+
+.cancelled-card .fw-bold {
+  color: #842029 !important;
+}
+
+.badge {
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+/* --- Features Section --- */
+.features-section {
+  background-color: #bda7a7;
+  border-top: 1px solid #ddd;
+}
+
+.features-section i {
+  color: #000;
+}
+
+.features-section h6 {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.features-section p {
+  font-size: 13px;
+  color: #8d8d8d;
+}

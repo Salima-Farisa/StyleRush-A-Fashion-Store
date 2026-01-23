@@ -1,0 +1,144 @@
+{% extends 'admin_app/base.html' %}
+{% block title %}Customers{% endblock %}
+{% load static %}
+{% block 'content' %}
+
+<div class="card bg-dark border p-3">
+    <h5 class="mb-3 text-light">All Customers</h5>
+
+    <table class="table table-dark table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Profile</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Country</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in customers %}
+                <tr>
+                    <!-- Profile Image -->
+                    <td>
+                        {% if c.profile_image %}
+                            <img src="{{ c.profile_image.url }}" alt="Profile" class="rounded-circle" width="45" height="45">
+                        {% else %}
+                            <img src="{% static 'images/default-profile.png' %}" alt="Default" class="rounded-circle" width="45" height="45">
+                        {% endif %}
+                    </td>
+
+                    <!-- Full Name -->
+                    <td>
+                        {% if c.user.first_name or c.user.last_name %}
+                            {{ c.user.first_name }} {{ c.user.last_name }}
+                        {% else %}
+                            {{ c.user.username }}
+                        {% endif %}
+                    </td>
+
+                    <!-- Email, Phone, Country -->
+                    <td>{{ c.user.email }}</td>
+                    <td>{{ c.phone|default:"—" }}</td>
+                    <td>{{ c.country|default:"—" }}</td>
+
+                    <!-- Status -->
+                    <td>
+                        {% if c.status == 'Active' %}
+                            <span class="badge bg-success">Active</span>
+                        {% else %}
+                            <span class="badge bg-danger">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#customerModal{{ c.id }}">View</button>
+
+                        <!-- Modal for details of customer-->
+                        <div class="modal fade" id="customerModal{{ c.id }}" tabindex="-1">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content bg-dark text-light">
+
+                                    <div class="modal-header border-secondary">
+                                        <h5 class="modal-title">Customer Details</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="row">
+
+                                            <!-- Profile -->
+                                            <div class="col-md-4 text-center">
+                                                {% if c.profile_image %}
+                                                    <img src="{{ c.profile_image.url }}" class="rounded-circle mb-3" width="110" height="110">
+                                                {% else %}
+                                                    <img src="{% static 'images/default-profile.png' %}" class="rounded-circle mb-3" width="110" height="110">
+                                                {% endif %}
+
+                                                <h6>{{ c.user.username }}</h6>
+
+                                                {% if c.status == "Active" %}
+                                                    <span class="badge bg-success">Active</span>
+                                                {% else %}
+                                                    <span class="badge bg-danger">Inactive</span>
+                                                {% endif %}
+                                            </div>
+
+                                            <!-- Details -->
+                                            <div class="col-md-8">
+                                                <table class="table table-dark table-borderless mb-0">
+                                                    <tr>
+                                                        <th>Full Name</th>
+                                                        <td>{{ c.user.first_name }} {{ c.user.last_name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <td>{{ c.user.email }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Phone</th>
+                                                        <td>{{ c.phone|default:"—" }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Country</th>
+                                                        <td>{{ c.country|default:"—" }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Address</th>
+                                                        <td>{{ c.address|default:"—" }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Joined</th>
+                                                        <td>{{ c.user.date_joined|date:"d M Y" }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Wallet Balance</th>
+                                                        <td class="fw-bold text-success">
+                                                            ₹{{ c.user.wallet.balance|default:"0.00" }}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer border-secondary">
+                                        <button class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted">No customers found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
