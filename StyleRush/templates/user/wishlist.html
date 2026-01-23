@@ -1,0 +1,93 @@
+{% extends 'user/base.html' %}
+{% load static %}
+
+{% block 'css' %}<link rel="stylesheet" href="{% static 'css/orders.css' %}">{% endblock %}
+
+{% block 'content' %}
+{% include 'includes/navbar.html' %}
+
+<section class="container-fluid order-section">
+    <div class="container py-4">
+        {% if messages %}
+            <div class="container mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if wishlist_items %}
+            {% for item in wishlist_items %}
+                <div class="order-card d-flex align-items-center justify-content-between shadow-sm mb-3 p-3 rounded">
+                    <div class="d-flex align-items-center">
+                        {% if item.variant.image %}
+                            <img src="{{ item.variant.image.url }}" alt="{{ item.variant.product.name }}" class="order-image rounded">
+                        {% else %}
+                            <img src="{% static 'images/no-image.png' %}" alt="No Image" class="order-image rounded">
+                        {% endif %}
+                        <div class="ms-3">
+                            <h6 class="fw-bold mb-1">{{ item.variant.product.name }}</h6>
+                            <p class="text-muted mb-0">₹{{ item.variant.price }}</p>
+                            <small class="text-secondary">
+                                Added on {{ item.added_at|date:"d M Y" }}
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'product_detail' item.variant.product.id %}" class="btn btn-outline-dark btn-sm">View</a>
+
+                            <!-- ADD TO CART BUTTON -->
+                            <a href="{% url 'add_to_cart' item.variant.id %}" class="btn btn-outline-success btn-sm">Add to Cart</a>
+
+                            <a href="{% url 'remove_from_wishlist' item.variant.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Remove this item from your wishlist?');">
+                                Remove
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center text-light mt-5">
+                <h5>No items in your wishlist yet.</h5>
+                <p class="text-muted">Start adding products you love!</p>
+                <a href="{% url 'products_list' %}" class="btn btn-light mt-2">Browse Products</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features-section py-4 border-top">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <i class="bi bi-trophy fs-3"></i>
+                <h6 class="mt-2">High Quality</h6>
+                <p class="small text-muted">Crafted from top materials</p>
+            </div>
+            <div class="col-md-3">
+                <i class="bi bi-patch-check fs-3"></i>
+                <h6 class="mt-2">Warranty Protection</h6>
+                <p class="small text-muted">Over 2 years</p>
+            </div>
+            <div class="col-md-3">
+                <i class="bi bi-truck fs-3"></i>
+                <h6 class="mt-2">Free Shipping</h6>
+                <p class="small text-muted">Order over ₹150</p>
+            </div>
+            <div class="col-md-3">
+                <i class="bi bi-headset fs-3"></i>
+                <h6 class="mt-2">24 / 7 Support</h6>
+                <p class="small text-muted">Dedicated support</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% include 'includes/footer.html' %}
+{% endblock %}

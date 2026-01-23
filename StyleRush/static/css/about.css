@@ -1,0 +1,94 @@
+.about-hero {
+  background: url('../images/about-hero.avif') center/cover no-repeat;
+  height: 60vh;
+  background-attachment: fixed;
+}
+
+.text-accent {
+  color: #5f2727;
+}
+
+.about-section {
+  background-color: #906b6b;
+}
+
+.about-section p {
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.mission-section {
+  background-color: #d3a7a7;
+}
+
+.mission-section img {
+  border-radius: 15px;
+}
+
+/* --- Category Cards Layout --- */
+.category-section {
+  background-color: #a18686;
+}
+
+.category-card {
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #d6c9c9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  height: 100%;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* --- Equal Height for All Images --- */
+.category-card img {
+  width: 100%;
+  height: 320px; /* ✅ Ensures same height for all */
+  object-fit: cover; /* Keeps proportion, crops if needed */
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* --- Text Section --- */
+.category-card h5 {
+  font-weight: 600;
+  margin-top: 1rem;
+  color: #2b1b1b;
+}
+
+.category-card p {
+  color: #6c5b5b;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* --- Responsive Fixes --- */
+@media (max-width: 992px) {
+  .category-card img {
+    height: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-card img {
+    height: 220px;
+  }
+}
+
+.testimonials {
+  background-color: #b1adad;
+}
+
+.testimonials p {
+  font-style: italic;
+  color: #444;
+}
+
+.testimonials .bg-white {
+  border-left: 4px solid #5f2727;
+}

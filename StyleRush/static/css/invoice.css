@@ -1,0 +1,121 @@
+@page {
+    size: A4;
+    margin: 10px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.invoice-wrapper {
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* HEADER */
+/* HEADER TABLE */
+.header-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+}
+
+.header-left {
+    width: 60%;
+}
+
+.header-left h1 {
+    font-size: 34px;
+    color: #1f6ed5;
+    margin: 0;
+    font-weight: 700;
+}
+
+.header-right {
+    width: 40%;
+    text-align: right;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+hr {
+    border: none;
+    border-top: 2px solid #1f6ed5;
+    margin: 10px 0 16px;
+}
+
+/* INFO TABLE — THIS FIXES THE ALIGNMENT */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 18px;
+}
+
+.info-table td {
+    vertical-align: top;
+    font-size: 13px;
+    padding: 0;
+}
+
+.info-left {
+    width: 60%;
+}
+
+.info-right {
+    width: 40%;
+    text-align: right;
+    line-height: 1.5;
+}
+
+/* STATUS BADGE */
+.badge {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #ffc107;
+    color: #000;
+    border-radius: 4px;
+}
+
+/* ITEMS TABLE */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.items-table th,
+.items-table td {
+    padding: 8px 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.items-table th {
+    background: #1f6ed5;
+    color: #fff;
+}
+
+.items-table .right {
+    text-align: right;
+}
+
+.items-table tfoot th {
+    background: #1f6ed5;
+    color: #fff;
+    font-weight: 700;
+}
+
+/* FOOTER */
+.invoice-footer {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+}

@@ -1,0 +1,93 @@
+body {
+  background-color: #f2e4e4;
+  font-family: "Poppins", sans-serif;
+}
+
+.address-card {
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.address-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  border-color: #5f2727;
+}
+
+.address-card input[type="radio"] {
+  accent-color: #5f2727;
+  transform: scale(1.2);
+  margin-right: 10px;
+}
+
+.btn-dark {
+  background-color: #5f2727;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  transition: 0.3s ease;
+}
+
+.btn-dark:hover {
+  background-color: #432020;
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 15px;
+  border: none;
+}
+
+.modal-header {
+  border-bottom: 1px solid #e4caca;
+  background-color: #f9f4f4;
+}
+
+.modal-footer {
+  border-top: 1px solid #e4caca;
+  background-color: #f9f4f4;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #3b2b2b;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.form-control:focus {
+  border-color: #5f2727;
+  box-shadow: none;
+}
+
+.form-check-input:checked {
+  background-color: #5f2727;
+  border-color: #5f2727;
+}
+
+/* --- Features Section --- */
+.features-section {
+  background-color: #bda7a7;
+  border-top: 1px solid #ddd;
+}
+
+.features-section i {
+  color: #000;
+}
+
+.features-section h6 {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.features-section p {
+  font-size: 13px;
+  color: #8d8d8d;
+} 

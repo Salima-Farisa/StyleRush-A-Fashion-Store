@@ -1,0 +1,101 @@
+{% extends 'user/base.html' %}
+{% load static %}
+
+{% block 'css' %}<link rel="stylesheet" href="{% static 'css/order_success.css' %}">{% endblock %}
+
+{% block 'content' %}
+{% include "includes/navbar.html" %}
+
+<section class="order-success py-5">
+    <div class="container">
+        <div class="row align-items-start g-4">
+      
+            <!-- LEFT: Thank You Section -->
+            <div class="col-lg-6 text-center text-lg-start">
+                <div class="thankyou-box p-4 rounded shadow-sm">
+                    <div class="icon-box mb-3">
+                        <i class="bi bi-check-circle-fill text-success fs-1"></i>
+                    </div>
+                    <h2 class="fw-bold mb-3">Thank you for your Purchase!</h2>
+                    <p class="text-muted mb-4">
+                        Your order has been confirmed. We will notify you by email once it has been shipped.
+                    </p>
+
+                    <div class="billing-info text-start border border-dark p-3 rounded">
+                        <h6 class="fw-bold mb-2">Billing Address</h6>
+                        <p class="mb-1"><strong>Name:</strong> {{ order.address.first_name }} {{ order.address.last_name }}</p>
+                        <p class="mb-1"><strong>Address:</strong> {{ order.address.street_address }}, {{ order.address.city }}, {{ order.address.state }}</p>
+                        <p class="mb-1"><strong>Phone:</strong> {{ order.address.phone }}</p>
+                        <p class="mb-0"><strong>Email:</strong> {{ order.address.email }}</p>
+                    </div>
+
+                    <div class="mt-4 d-flex gap-3 justify-content-center justify-content-lg-start">
+                        <a href="{% url 'track_order' order.id %}" class="btn btn-dark rounded-pill px-4">Track Your Order</a>
+                        <a href="{% url 'home' %}" class="btn btn-outline-dark rounded-pill px-4">Continue</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Order Summary -->
+            <div class="col-lg-6">
+                <div class="summary-box p-4 rounded shadow-sm">
+                    <h5 class="fw-bold mb-4 border-bottom border-dark pb-2">Order Summary</h5>
+                    <div class= "order-box py-2">
+                        <div class="pb-3 row text-center mb-3 fw-semibold text-muted">
+                            <div class="col">Date</div>
+                            <div class="col">Order ID</div>
+                            <div class="col">Payment Method</div>
+                        </div>
+
+                        <div class="row text-center mb-4">
+                            <div class="col">{{ order_date }}</div>
+                            <div class="col">#{{ order.id }}</div>
+                            <div class="col">{{ order.payment_mode }}</div>
+                        </div>
+                    </div>
+
+                    {% for item in order.items.all %}
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="d-flex align-items-center">
+                                {% if item.variant.image %}
+                                    <img src="{{ item.variant.image.url }}" alt="{{ item.variant.product.name }}" width="70" height="70" class="rounded me-3">
+                                {% elif item.variant.color.main_image %}
+                                    <img src="{{ item.variant.color.main_image.url }}" alt="{{ item.variant.product.name }}" width="70" height="70" class="rounded me-3">
+                                {% elif item.variant.product.image %}
+                                    <img src="{{ item.variant.product.image.url }}" alt="{{ item.variant.product.name }}" width="70" height="70" class="rounded me-3">
+                                {% else %}
+                                    <img src="{% static 'images/placeholder.jpg' %}" alt="Product" width="70" height="70" class="rounded me-3">
+                                {% endif %}
+
+                                <div>
+                                    <p class="mb-0 fw-semibold">{{ item.variant.product.name }}</p>
+                                    <small class="text-muted">{{ item.variant.color.name }} / {{ item.variant.size }}</small>
+                                </div>
+                            </div>
+                            <span>₹{{ item.price|floatformat:2 }}</span>
+                        </div>
+                    {% endfor %}
+
+                    <div class="border-top pt-3 mt-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Subtotal</span>
+                            <span>₹{{ order.total|floatformat:2 }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Shipping</span>
+                            <span>₹{{ shipping_charge|floatformat:2 }}</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between fw-bold mt-3 fs-5 border-top pt-2">
+                        <span>Total</span>
+                        <span class="text-warning">₹{{ total_with_shipping|floatformat:2 }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "includes/footer.html" %}
+{% endblock %}
