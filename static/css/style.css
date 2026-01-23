@@ -1,0 +1,242 @@
+/* Reset & base styles */
+* {
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  background-color: #dfbbbb;
+}
+
+/* Common card style for login & signup */
+.login-wrap {
+  width: 500px;
+  background: rgba(15, 14, 14, 0.03);;
+}
+
+.login-card,
+.form-card, 
+.card-wrap {
+  width: 90%;
+  max-width: 900px;
+  padding: 30px;
+  border-radius: 8px;
+  background: rgba(24, 21, 21, 0.03);
+  box-shadow: 0 6px 14px var(--button-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  text-align: center;
+  margin: 20px auto;
+}
+
+/* Brand / page title */
+.brand,
+.brand-name {
+  font-family: "Palace Script", serif;
+  color: var(--muted);
+  font-size: 22px;
+  margin: 6px 0 22px;
+  letter-spacing: 2px;
+  font-style: italic;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 14px 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 2px solid var(--input-border);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
+  outline: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+input::placeholder {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Buttons */
+button.btn-login,
+button.btn-primary {
+  width: 70%;
+  min-width: 160px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--panel), var(--accent));
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.18);
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  transition: background 0.3s ease;
+}
+
+button.btn-login:hover,
+button.btn-primary:hover {
+  background: linear-gradient(180deg, var(--accent), var(--panel));
+}
+
+/* Google button */
+.google-btn {
+  border: 1px solid #d6d6d6;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 15px;
+}
+
+.google-btn:hover {
+  background-color: #f1f1f1;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+.divider::before,
+.divider::after {
+  flex: 1;
+  height: 1px;
+  background-color: #ffffff;
+  content: "";
+}
+
+/* Labels */
+label {
+  display: block;
+  font-weight: 600;
+  color: #322727;
+  font-size: 16px;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+/* Error messages */
+.error {
+  color: #ff4d4d;
+  font-size: 16px;
+  display: block;
+  text-align: left;
+  margin-top: 2px;
+}
+
+/* Links */
+.forgot,
+.link-msg {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.forgot a,
+.link-msg a {
+  color: #2b2020;
+  text-decoration: none;
+  font-weight: 600;
+  display: block;
+}
+
+/* Responsive tweaks */
+@media (max-width: 500px) {
+  .login-card, .form-card {
+    width: 95%;
+    padding: 20px;
+  }
+
+  button.btn-login,
+  button.btn-primary {
+    width: 100%;
+  }
+
+  .brand,
+  .brand-name {
+    font-size: 18px;
+  }
+}
+
+/* Error Page */
+.about-hero {
+  background-color: #987a7a;
+  height: 100vh;
+  background-attachment: fixed;
+}
+
+/* Forgot Password Page */
+/* Card */
+.card-wrap form {
+  width: 100%;
+  padding: 30px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 6px 14px var(--button-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  text-align: center;
+}
+
+/* Heading */
+.card-wrap h2 {
+  font-family: "Palace Script", serif;
+  color: var(--muted);
+  font-size: 24px;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  font-style: italic;
+}
+
+/* Inputs (inherits global input styles) */
+.card-wrap input {
+  width: 100%;
+}
+
+/* Error messages */
+.card-wrap .error {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+
+.card-wrap .main-btn:hover {
+  background: linear-gradient(180deg, var(--accent), var(--panel));
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .card-wrap {
+    width: 95%;
+  }
+
+  .card-wrap .main-btn {
+    width: 100%;
+  }
+
+  .card-wrap h2 {
+    font-size: 20px;
+  }
+}

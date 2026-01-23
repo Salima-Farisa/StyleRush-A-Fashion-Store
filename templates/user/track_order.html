@@ -1,0 +1,76 @@
+{% extends 'user/base.html' %}
+{% load static %}
+
+{% block 'css' %}<link rel="stylesheet" href="{% static 'css/track_order.css' %}">{% endblock %}
+
+{% block 'content' %}
+{% include "includes/navbar.html" %}
+
+<section class="track-order py-5">
+    <div class="container">
+        <h3 class="fw-bold mb-4 text-center">Track Your Order</h3>
+
+        <div class="card shadow-sm p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <p class="mb-1"><strong>Order ID:</strong> #{{ order.id }}</p>
+                    <p class="mb-1"><strong>Status:</strong> {{ order.payment_status }}</p>
+                    <p class="mb-0"><strong>Tracking Number:</strong> {{ order.id|add:256748400 }}</p>
+                </div>
+                <a href="{% url 'order_list' %}" class="btn btn-sm btn-outline-dark">Back to Orders</a>
+            </div>
+
+            <!-- Timeline -->
+            <div class="track-timeline mt-4">
+                {% for step in tracking_steps %}
+                    <div class="track-step {% if step.done %}active{% endif %}">
+                        <div class="circle">
+                            {% if step.done %}
+                                <i class="bi bi-check-lg"></i>
+                            {% else %}
+                                <i class="bi bi-clock"></i>
+                            {% endif %}
+                        </div>
+                        <div class="label">
+                            <p class="fw-semibold mb-1">{{ step.name }}</p>
+                            {% if step.status %}
+                                <small class="text-muted">{{ step.status|date:"M d, Y h:i A" }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features-section py-4 border-top">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <i class="bi bi-trophy fs-3"></i>
+                <h6 class="mt-2">High Quality</h6>
+                <p class="small text-muted">Crafted from top materials</p>
+            </div>
+            <div class="col-md-3">
+                <i class="bi bi-patch-check fs-3"></i>
+                <h6 class="mt-2">Warranty Protection</h6>
+                <p class="small text-muted">Over 2 years</p>
+            </div>
+            <div class="col-md-3">
+                <i class="bi bi-truck fs-3"></i>
+                <h6 class="mt-2">Free Shipping</h6>
+                <p class="small text-muted">Order over ₹150</p>
+            </div>
+            <div class="col-md-3">
+                <i class="bi bi-headset fs-3"></i>
+                <h6 class="mt-2">24 / 7 Support</h6>
+                <p class="small text-muted">Dedicated support</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "includes/footer.html" %}
+{% endblock %}

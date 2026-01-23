@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="{% static 'css/invoice.css' %}">
+</head>
+<body>
+
+<div class="invoice-wrapper">
+
+    <!-- HEADER -->
+    <table class="header-table">
+        <tr>
+            <td class="header-left">
+                <h1>Invoice</h1>
+            </td>
+            <td class="header-right">
+                <strong>STYLE RUSH</strong><br>
+                Fashion Store<br>
+                support@stylerush.com
+            </td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- INFO -->
+    <table class="info-table">
+        <tr>
+            <td class="info-left">
+                <strong>Shipping Address</strong><br>
+                {{ order.address.first_name }} {{ order.address.last_name }}<br>
+                {{ order.address.street_address }}<br>
+                {{ order.address.city }}, {{ order.address.state }}<br>
+                {{ order.address.country }} - {{ order.address.zip_code }}<br>
+                Phone: {{ order.address.phone }}
+            </td>
+
+            <td class="info-right">
+                <strong>Order #{{ order.id }}</strong><br>
+                Order Date: {{ order.created_at|date:"d M Y" }}<br>
+                Payment Mode: {{ order.payment_mode }}<br>
+                Total Amount: ₹{{ order.total }}<br>
+                <span class="badge">{{ order.payment_status }}</span>
+            </td>
+        </tr>
+    </table>
+
+
+    <!-- ITEMS -->
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Variant</th>
+                <th class="right">Price</th>
+                <th class="right">Qty</th>
+                <th class="right">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items.all %}
+            <tr>
+                <td>{{ item.variant.product.name }}</td>
+                <td>{{ item.variant.color.name }} / {{ item.variant.size.size }}</td>
+                <td class="right">₹{{ item.price }}</td>
+                <td class="right">{{ item.quantity }}</td>
+                <td class="right">₹{{ item.subtotal }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="4" class="right">Grand Total</th>
+                <th class="right">₹{{ order.total }}</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- FOOTER -->
+    <div class="invoice-footer">
+        This is a system generated invoice.<br>
+        Thank you for shopping with <strong>STYLE RUSH</strong>.
+    </div>
+
+</div>
+
+</body>
+</html>

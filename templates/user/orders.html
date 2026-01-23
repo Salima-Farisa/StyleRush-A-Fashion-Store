@@ -1,0 +1,134 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block 'css' %}<link rel="stylesheet" href="{% static 'css/orders.css' %}">{% endblock %}
+
+{% block 'content' %}
+{% include "includes/navbar.html" %}
+
+<section class="container-fluid order-section">
+    <div class="container py-4">
+        {% if messages %}
+            <div class="container mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if orders %}
+            {% for order in orders %}
+                {% for item in order.items.all %}
+                    <div class="order-card d-flex align-items-center justify-content-between shadow-sm mb-3 p-3 rounded {% if order.payment_status == 'Cancelled' %}cancelled-card{% endif %}">
+                        <div class="d-flex align-items-center">
+                            {% if item.variant.image %}
+                                <img src="{{ item.variant.image.url }}" alt="{{ item.variant.product.name }}" class="order-image rounded">
+
+                            {% elif item.variant.color.main_image %}
+                                <img src="{{ item.variant.color.main_image.url }}" alt="{{ item.variant.product.name }}" class="order-image rounded">
+
+                            {% elif item.variant.product.image %}
+                                <img src="{{ item.variant.product.image.url }}" alt="{{ item.variant.product.name }}" class="order-image rounded">
+
+                            {% else %}
+                                <img src="{% static 'images/no-image.png' %}" alt="No Image" class="order-image rounded">
+                            {% endif %}
+
+                            <div class="ms-3">
+                                <h6 class="fw-bold mb-1">{{ item.variant.product.name }}</h6>
+                                <p class="text-muted mb-0">₹{{ item.price }} × {{ item.quantity }}</p>
+                                <small class="text-secondary">Order ID: #{{ order.id }}</small><br>
+                                <!-- ✅ Show status label -->
+                                <span class="badge 
+                                    {% if order.payment_status == 'Cancelled' %}bg-danger
+                                    {% elif order.payment_status == 'Delivered' %}bg-success
+                                    {% elif order.payment_status == 'Shipped' %}bg-primary
+                                    {% else %}bg-warning text-dark{% endif %}">
+                                    {{ order.payment_status }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="text-end">
+                            <p class="fw-semibold mb-1">Total: ₹{{ order.total }}</p>
+                            <p class="text-muted small mb-1">Tracking: {{ order.id|add:256748400 }}</p>
+
+                            <!-- Buttons -->
+                            <div class="d-flex justify-content-end gap-2">
+                                <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-primary btn-sm">View Details</a>
+                                {% if order.payment_status == 'Cancelled' %}
+                                    <button class="btn btn-outline-danger btn-sm" disabled>Cancelled</button>
+                                {% elif order.payment_status != 'Delivered' %}
+                                    <a href="{% url 'track_order' order.id %}" class="btn btn-outline-dark btn-sm">Track Order</a>
+
+                                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal{{ order.id }}">
+                                        Cancel Order
+                                    </button>
+                                {% else %}
+                                    <button class="btn btn-outline-dark btn-sm" disabled>Delivered</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!-- Move modal INSIDE the for loop -->
+                <div class="modal fade" id="cancelModal{{ order.id }}" tabindex="-1" aria-labelledby="cancelModalLabel{{ order.id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger text-white">
+                                <h5 class="modal-title" id="cancelModalLabel{{ order.id }}">Confirm Cancellation</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <p>Are you sure you want to <strong>cancel this order</strong>?<br>This action cannot be undone.</p>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Go Back</button>
+                                <a href="{% url 'cancel_order' order.id %}" class="btn btn-danger">Yes, Cancel Order</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% else %}
+            <div class="text-center text-light mt-5">
+                <h5>No orders yet.</h5>
+                <p class="text-muted">Start shopping to place your first order!</p>
+                <a href="{% url 'home' %}" class="btn btn-light mt-2">Shop Now</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features-section py-4 border-top">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <i class="bi bi-trophy fs-3"></i>
+                <h6 class="mt-2">High Quality</h6>
+                <p class="small text-muted">Crafted from top materials</p>
+            </div>
+            <div class="col-md-3">
+                <i class="bi bi-patch-check fs-3"></i>
+                <h6 class="mt-2">Warranty Protection</h6>
+                <p class="small text-muted">Over 2 years</p>
+            </div>
+            <div class="col-md-3">
+                <i class="bi bi-truck fs-3"></i>
+                <h6 class="mt-2">Free Shipping</h6>
+                <p class="small text-muted">Order over ₹150</p>
+            </div>
+            <div class="col-md-3">
+                <i class="bi bi-headset fs-3"></i>
+                <h6 class="mt-2">24 / 7 Support</h6>
+                <p class="small text-muted">Dedicated support</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "includes/footer.html" %}
+{% endblock %}
