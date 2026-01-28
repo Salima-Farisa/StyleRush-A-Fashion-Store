@@ -20,7 +20,7 @@ body {
   background: rgba(15, 14, 14, 0.03);;
 }
 
-.login-card,
+.login-wrap,
 .form-card, 
 .card-wrap {
   width: 90%;

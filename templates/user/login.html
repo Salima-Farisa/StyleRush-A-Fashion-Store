@@ -2,12 +2,13 @@
 {% load static %}
 {% block 'css' %}<link rel="stylesheet" href="{% static "css/style.css" %}">{% endblock %}
 {% block 'content' %}
+
+{% for message in messages%}
+  <div class="alert alert-danger">
+    <strong>{{message}}</strong>
+  </div>
+{% endfor %}
 <section class="login-wrap">
-  {% for message in messages%}
-    <div class="alert alert-danger">
-      <strong>{{message}}</strong>
-    </div>
-  {% endfor %}
   <form class="login-card" method="post" action="{% url "login" %}" id="loginform">
     <h1 class="brand">STYLERUSH</h1>
     {% csrf_token %}
