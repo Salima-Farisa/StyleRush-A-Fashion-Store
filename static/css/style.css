@@ -16,11 +16,19 @@ body {
 
 /* Common card style for login & signup */
 .login-wrap {
-  width: 500px;
-  background: rgba(15, 14, 14, 0.03);;
+  width: 90%;
+  max-width: 500px;
+  background: rgba(24, 21, 21, 0.03);
+  box-shadow: 0 6px 14px var(--button-shadow);
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  text-align: center;
+  margin: 20px auto;
+
 }
 
-.login-wrap,
 .form-card, 
 .card-wrap {
   width: 90%;
